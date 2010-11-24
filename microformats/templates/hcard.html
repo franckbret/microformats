@@ -8,6 +8,7 @@
             {% if instance.additional_name %}<span class="additional-name">{{instance.additional_name}}</span>{% endif %}
             {% if instance.family_name %}<span class="family-name">{{instance.family_name}}</span>{% endif%}
             {% if instance.honorific_suffix %}<span class="honorific-suffix">{{instance.honorific_suffix}}</span>{% endif %}
+            {% if instance.image %}<img class="photo" src="{{instance.image.url}}" alt="{{instance.honorific_prefix}} {{instance.given_name}} {{instance.additional_name}} {{instance.family_name}} {% trans "photo" %}" />{% endif %}
         {% else %}
         <span class="org">{{instance.org}}</span>
         {% endif %}
