@@ -39,6 +39,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext as __
 from django.contrib.auth.models import User
 from datetime import date
+from django.conf import settings
+
+# Let user define a prefix upload path for imagefield and filedfield
+import os
+MICROFORMATS_UPLOAD_PATH = getattr(settings, 'MICROFORMATS_UPLOAD_PATH', 'microformats')
 
 ########################################
 # Constant tuples used in several models
@@ -531,7 +536,7 @@ class hCard(LocationAwareMicroformat):
             )
     # Represents a photo/image/logo associated with an instance
     image = models.ImageField(
-            upload_to='hcardphoto',
+            upload_to=os.path.join(MICROFORMATS_UPLOAD_PATH, 'hcardphoto'),
             null=True,
             blank=True
             )
@@ -795,7 +800,7 @@ class hListing(LocationAwareMicroformat):
             )
     item_photo = models.ImageField(
             _("A photo of the item"),
-            upload_to='hlistingphoto',
+            upload_to=os.path.join(MICROFORMATS_UPLOAD_PATH, 'hlistingphoto'),
             null=True,
             blank=True
             )
@@ -917,7 +922,7 @@ class hReview(LocationAwareMicroformat):
             blank=True
             )
     photo = models.ImageField(
-            upload_to='hreviewphoto',
+            upload_to=os.path.join(MICROFORMATS_UPLOAD_PATH, 'hreviewphoto'),
             null=True,
             blank=True
             )
@@ -1556,8 +1561,8 @@ class hCardComplete(models.Model):
     objects = HCardManager()
 
     class Meta:
-        verbose_name = _('hCard')
-        verbose_name_plural = _('hCards')
+        verbose_name = _('hCard complete')
+        verbose_name_plural = _('hCards complete')
 
     def __unicode__(self):
         return self.fn() or _('Unnamed')
@@ -1844,7 +1849,7 @@ class photo(models.Model):
 
     """
     hcard = models.ForeignKey(hCardComplete)
-    image = models.ImageField(upload_to='hcardphoto')
+    image = models.ImageField(upload_to=os.path.join(MICROFORMATS_UPLOAD_PATH, 'hcardphoto'))
 
     class  Meta:
         verbose_name = _('Photo')
@@ -1863,7 +1868,7 @@ class logo(models.Model):
 
     """
     hcard = models.ForeignKey(hCardComplete)
-    image = models.ImageField(upload_to='hcardlogo')
+    image = models.ImageField(upload_to=os.path.join(MICROFORMATS_UPLOAD_PATH, 'hcardlogo'))
 
     class  Meta:
         verbose_name = _('Logo')
@@ -1882,7 +1887,7 @@ class sound(models.Model):
 
     """
     hcard = models.ForeignKey(hCardComplete)
-    recording = models.FileField(upload_to='hcardsounds')
+    recording = models.FileField(upload_to=os.path.join(MICROFORMATS_UPLOAD_PATH,'hcardsounds'))
 
     class  Meta:
         verbose_name = _('Sound')
