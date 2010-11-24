@@ -7,3 +7,4 @@ RELEASE-VERSION
 # Various IDE Junk:
 *.komodoproject
 *.esprj
+*.pyc
