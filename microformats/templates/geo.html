@@ -1,9 +1,9 @@
-{% load i18n %}
+{% load i18n microformat_extras %}
 <div class="geo">
-    <abbr class="latitude" title="{{instance.latitude}}">
-    {% if instance.latitude_description %}{{instance.latitude_description}}{% else %}{{instance.latitude}}{% endif %}
+    <abbr class="latitude" title="{{instance.latitude|geopoint}}">
+    {% if instance.latitude_description %}{{instance.latitude_description}}{% else %}{{instance.latitude|geopoint|floatformat:6}}{% endif %}
     </abbr>&nbsp;
-    <abbr class="longitude" title="{{instance.longitude}}">
-    {% if instance.longitude_description %}{{instance.longitude_description}}{% else %}{{instance.longitude}}{% endif %}
+    <abbr class="longitude" title="{{instance.longitude|geopoint}}">
+    {% if instance.longitude_description %}{{instance.longitude_description}}{% else %}{{instance.longitude|geopoint|floatformat:6}}{% endif %}
     </abbr>
 </div>

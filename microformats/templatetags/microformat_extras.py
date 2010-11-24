@@ -437,3 +437,19 @@ def hnews(value, arg=None, autoescape=None):
         template_name = getattr(settings, 'HNEWS_MICROFORMAT_TEMPLATE', False) and settings.HNEWS_MICROFORMAT_TEMPLATE or HNEWS_MICROFORMAT_TEMPLATE
         return mark_safe(render_microformat(value, template_name))
 hentry.needs_autoescape = True
+
+
+@register.filter
+def geopoint(value,arg=None, autoescape=None):
+    """ Format a geopoint string by replacing comma occurence by dot.
+    This is util when rendering geo value in templates regardless of
+    localization.
+    Geo point should always been rendered with a dot separator but some
+    localizations render with a comma.
+    This will be useless when http://code.djangoproject.com/changeset/14395 will
+    be merge in a stable django version giving us a templates tag for
+    deactivating localization.
+    """
+    value = str(value)
+    return value.replace(',', '.')
+    
