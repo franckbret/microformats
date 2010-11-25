@@ -1653,7 +1653,7 @@ class adr(models.Model):
             blank=True
             )
     region = models.CharField(
-            _('Country / State'),
+            _('County / State'),
             max_length=128,
             blank=True
             )
