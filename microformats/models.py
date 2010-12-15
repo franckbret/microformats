@@ -148,6 +148,7 @@ COUNTRY_LIST = (
         ('CG', _('Congo')),
         ('CK', _('Cook Islands')),
         ('CR', _('Costa Rica')),
+        ('CI', _('Cote d\'Ivoire')),
         ('HR', _('Croatia')),
         ('CU', _('Cuba')),
         ('CY', _('Cyprus')),
@@ -198,7 +199,6 @@ COUNTRY_LIST = (
         ('IR', _('Iran')),
         ('IQ', _('Iraq')),
         ('IL', _('Israel')),
-        ('CI', _('Ivory Coast (Cote D&#39;Ivoire)')),
         ('JM', _('Jamaica')),
         ('JP', _('Japan')),
         ('JO', _('Jordan')),
@@ -271,13 +271,13 @@ COUNTRY_LIST = (
         ('RO', _('Romania')),
         ('RU', _('Russian Federation')),
         ('RW', _('Rwanda')),
-        ('GS', _('S. Georgia &amp; S. Sandwich Isls.')),
+        ('GS', _('S. Georgia & S. Sandwich Isls.')),
         ('SH', _('Saint Helena')),
-        ('KN', _('Saint Kitts &amp; Nevis Anguilla')),
+        ('KN', _('Saint Kitts & Nevis Anguilla')),
         ('LC', _('Saint Lucia')),
         ('PM', _('Saint Pierre and Miquelon')),
         ('ST', _('Saint Tome (Sao Tome) and Principe')),
-        ('VC', _('Saint Vincent &amp; Grenadines')),
+        ('VC', _('Saint Vincent & Grenadines')),
         ('WS', _('Samoa')),
         ('SM', _('San Marino')),
         ('SA', _('Saudi Arabia')),
@@ -316,7 +316,6 @@ COUNTRY_LIST = (
         ('UA', _('Ukraine')),
         ('AE', _('United Arab Emirates')),
         ('UY', _('Uruguay')),
-        ('MIL', _('USA Military')),
         ('UM', _('USA Minor Outlying Islands')),
         ('UZ', _('Uzbekistan')),
         ('VU', _('Vanuatu')),
@@ -1349,8 +1348,9 @@ class HCardManager(models.Manager):
             raise AttributeError
 
         hcard = self.model()
-        o = org(name=name, hcard=hcard)
         hcard.save()
+        o = org(name=name, hcard=hcard)
+        o.save()
         return hcard
 
 
@@ -1565,7 +1565,7 @@ class hCardComplete(models.Model):
         verbose_name_plural = _('hCards complete')
 
     def __unicode__(self):
-        return self.fn() or _('Unnamed')
+        return unicode(self.fn()) or _('Unnamed')
 
 class adr_type(models.Model):
     """
