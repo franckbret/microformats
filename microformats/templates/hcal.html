@@ -8,11 +8,14 @@
         {% endif %}
         {% if instance.dtend %}
             &nbsp;-&nbsp;
-            {% ifequal instance.dtstart.date instance.dtend.date %}
+            {% if instance.all_day_event and instance.dtstart.date == instance.dtend.date %}
             <abbr title="{{instance.dtend.isoformat}}" class="dtend">{% trans "All day event" %}</abbr>
             {% else %}
+            {% if instance.dtstart.date == instance.dtend.date %}
             <abbr title="{{instance.dtend.isoformat}}" class="dtend">{{instance.dtend|time:"P"}}</abbr>
-            {% endifequal %}
+            {% else %}
+            <abbr title="{{instance.dtend.isoformat}}" class="dtend">{{instance.dtstart|date:"D d M Y P"}}</abbr>
+            {% endif %}
         {% endif %}
         :&nbsp;
         <span class="summary">{{instance.summary}}</span>
